@@ -43,5 +43,12 @@ A stunning, fully responsive landing page for a premium spring water brand. Buil
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/technicalessles-debug/aquapure-landing-page.git
+# Clone the repository
+git clone https://github.com/technicalessons-debug/aquapure-landing-page.git
+
+# Navigate to project folder
 cd aquapure-landing-page
+
+# Open in browser
+open index.html   # macOS
+start index.html  # Windows
