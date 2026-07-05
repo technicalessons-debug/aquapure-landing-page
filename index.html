@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AquaPure | Premium Spring Drinking Water</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .inner-glow {
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 4px 20px rgba(0, 15, 34, 0.05);
+        }
+
+        .bottle-shadow {
+            filter: drop-shadow(0 20px 30px rgba(0, 15, 34, 0.1));
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu-panel {
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Floating WhatsApp - FIXED URL */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            background: #25D366;
+            color: #fff;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            animation: pulse-whatsapp 2.5s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.12);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55);
+        }
+        @keyframes pulse-whatsapp {
+            0%,
+            100% {
+                box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 48px rgba(37, 211, 102, 0.7);
+            }
+        }
+        .whatsapp-float .tooltip {
+            position: absolute;
+            right: 76px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            transform: translateX(8px);
+        }
+        .whatsapp-float .tooltip::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 8px solid #1a1a1a;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+        .whatsapp-float:hover .tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 640px) {
+            .whatsapp-float {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .whatsapp-float .tooltip {
+                display: none;
+            }
+        }
+
+        /* Nav link underline */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: currentColor;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Product card image hover */
+        .product-card .product-img {
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .product-card:hover .product-img {
+            transform: scale(1.06) translateY(-6px);
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero video container — FULL SCREEN cover with NO GAPS */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: #0a2540;
+        }
+        .hero-video iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300%;
+            height: 300%;
+            min-width: 100%;
+            min-height: 100%;
+            pointer-events: none;
+            border: none;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 15, 34, 0.45);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* YouTube embed responsive for reviews */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Fonts: Playfair for headings, Inter for body */
+        .font-serif-heading {
+            font-family: 'Playfair Display', 'Inter', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+    </style>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#f7f9fb",
+                        "surface-tint": "#49607e",
+                        "on-secondary-fixed-variant": "#1f5029",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-secondary-fixed": "#002108",
+                        "on-primary-fixed-variant": "#314865",
+                        "surface-dim": "#d8dadc",
+                        "on-background": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#b9f0ba",
+                        "on-tertiary-fixed": "#241a00",
+                        "primary-container": "#0a2540",
+                        "tertiary-container": "#cca830",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed-dim": "#9ed4a0",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#b9f0ba",
+                        "surface-container": "#eceef0",
+                        "inverse-primary": "#b0c8eb",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary": "#000f22",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed": "#d2e4ff",
+                        "outline-variant": "#c4c6ce",
+                        "on-tertiary-container": "#4f3e00",
+                        "tertiary-fixed": "#ffe088",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#768dad",
+                        "secondary": "#38693f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "inverse-surface": "#2d3133",
+                        "tertiary": "#735c00",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#43474d",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001c37",
+                        "outline": "#74777e"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["'Playfair Display'", "serif"],
+                        "headline-md": ["'Inter'", "sans-serif"],
+                        "body-lg": ["'Inter'", "sans-serif"],
+                        "headline-xl": ["'Playfair Display'", "serif"],
+                        "body-md": ["'Inter'", "sans-serif"],
+                        "headline-xl-mobile": ["'Playfair Display'", "serif"],
+                        "display-lg-mobile": ["'Playfair Display'", "serif"],
+                        "label-sm": ["'Inter'", "sans-serif"]
+                    },
+                    fontSize: {
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-xl": ["44px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-xl-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg-mobile": ["42px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed-dim selection:text-primary">
+
+    <!-- ============================================================
+    NAVIGATION
+    ============================================================ -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 bg-surface/70 backdrop-blur-xl border-b border-white/20 shadow-sm" id="mainNav">
+        <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-3 md:py-4 max-w-container-max mx-auto">
+
+            <!-- Logo -->
+            <a class="font-display-lg text-headline-md font-bold text-primary flex items-center gap-2" href="#">
+                <span class="text-2xl">💧</span>
+                Visthara Water Bottle
+            </a>
+
+            <!-- Desktop nav -->
+            <div class="hidden md:flex gap-8 items-center">
+                <a class="nav-link font-label-sm text-label-sm text-primary border-b-2 border-primary pb-1" href="#">Home</a>
+                <a class="nav-link font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#shop">Water Selection</a>
+                <a class="nav-link font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#b2b">B2B Supply</a>
+                <!--a class="nav-link font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#events">Events</a-->
+                <a class="nav-link font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#reviews">Reviews</a>
+            </div>
+
+            <!-- Desktop CTA - FIXED WhatsApp links -->
+            <div class="hidden md:flex gap-4">
+                <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20order%20your%20premium%20spring%20water!" target="_blank" class="whatsapp-trigger px-6 py-2 rounded-full border border-primary text-primary font-label-sm text-label-sm hover:bg-primary/5 transition-all scale-95 active:scale-90">
+                    Shop Water
+                </a>
+                <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20inquire%20about%20bulk%20ordering%20for%20my%20business!" target="_blank" class="whatsapp-trigger px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm transition-all scale-95 active:scale-90">
+                    Bulk Inquiry
+                </a>
+            </div>
+
+            <!-- Mobile hamburger -->
+            <button class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-surface-container transition-colors" id="menuToggle" aria-label="Toggle menu">
+                <span class="block w-7 h-0.5 bg-primary rounded-full transition-all duration-300" id="menuBar1"></span>
+                <span class="block w-7 h-0.5 bg-primary rounded-full transition-all duration-300" id="menuBar2"></span>
+                <span class="block w-7 h-0.5 bg-primary rounded-full transition-all duration-300" id="menuBar3"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    MOBILE MENU - FIXED WhatsApp links
+    ============================================================ -->
+    <div class="mobile-menu-overlay fixed inset-0 z-40 bg-black/40 backdrop-blur-sm opacity-0 invisible transition-all" id="mobileOverlay"></div>
+    <div class="mobile-menu-panel fixed top-0 right-0 z-50 h-full w-80 max-w-[80vw] bg-surface shadow-2xl translate-x-full transition-transform duration-350 ease-[cubic-bezier(0.4,0,0.2,1)]" id="mobileMenu">
+        <div class="flex flex-col h-full p-6 pt-20">
+            <div class="flex items-center justify-between mb-10">
+                <span class="font-headline-md text-primary">Menu</span>
+                <button class="p-2 rounded-full hover:bg-surface-container transition-colors" id="menuClose">
+                    <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-6 text-lg font-medium">
+                <a class="text-primary border-b-2 border-primary pb-2" href="#">Home</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-outline-variant" href="#shop">Water Selection</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-outline-variant" href="#b2b">B2B Supply</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-outline-variant" href="#events">Events</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-outline-variant" href="#reviews">Reviews</a>
+            </nav>
+            <div class="mt-auto pt-8 border-t border-outline-variant space-y-4">
+                <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20order%20your%20premium%20spring%20water!" target="_blank" class="whatsapp-trigger w-full py-3 rounded-full border border-primary text-primary font-label-sm hover:bg-primary/5 transition-colors text-center block">Shop Water</a>
+                <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20inquire%20about%20bulk%20ordering%20for%20my%20business!" target="_blank" class="whatsapp-trigger w-full py-3 rounded-full bg-primary text-on-primary font-label-sm shadow-sm transition-colors hover:bg-primary/90 text-center block">Bulk Inquiry</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    HERO – YouTube background (FULL SCREEN COVER, NO GAPS)
+    ============================================================ -->
+    <section class="relative w-full h-[440px] sm:h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-primary-container" id="hero">
+
+        <!-- Video background - FULL SCREEN COVER with NO GAPS -->
+        <div class="hero-video">
+            <iframe 
+                src="https://www.youtube.com/embed/Jk88_BaEi00?autoplay=1&mute=1&loop=1&playlist=Jk88_BaEi00&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1&color=white&autohide=1" 
+                title="AquaPure spring water background" 
+                allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- hero content - FIXED WhatsApp button -->
+        <div class="hero-content relative z-10 h-full flex items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="max-w-2xl text-white">
+                <br><br>
+                <span class="inline-block px-4 py-1 mb-4 md:mb-6 rounded-full glass-morphism border border-white/30 font-label-sm text-label-sm tracking-wider">
+                    🏔️ Mountain Spring
+                </span>
+                <h1 class="font-serif-heading text-display-lg-mobile md:text-display-lg mb-4 md:mb-6 leading-[1.1] text-white drop-shadow-xl">
+                    Pure Spring Water.<br />Crisp &amp; Refreshing.
+                </h1>
+                <p class="font-body-lg text-body-lg mb-6 md:mb-8 opacity-90 max-w-lg drop-shadow-lg text-sm md:text-base">
+                    Sourced from deep alpine aquifers, our 500ml bottle delivers the perfect daily hydration ritual.
+                </p>
+                <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20order%20a%20case%20of%20your%20500ml%20spring%20water!" target="_blank" class="whatsapp-trigger inline-block px-6 md:px-8 py-3 md:py-4 bg-white/20 backdrop-blur-md text-white font-headline-md rounded-xl border border-white/30 hover:bg-white/30 transition-all shadow-xl text-sm md:text-base">
+                    Order 500ml Case
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FEATURE GRID
+    ============================================================ -->
+    <section class="py-16 md:py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <div class="p-6 md:p-8 rounded-2xl glass-morphism inner-glow flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 bg-white/60 backdrop-blur-sm">
+                <span class="material-symbols-outlined text-secondary text-4xl mb-4">water_drop</span>
+                <h3 class="font-headline-md text-headline-md mb-2 text-primary">Crisp, Clean Taste</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Sourced from deep mountain springs and filtered naturally through volcanic rock.</p>
+            </div>
+            <div class="p-6 md:p-8 rounded-2xl glass-morphism inner-glow flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 bg-white/60 backdrop-blur-sm">
+                <span class="material-symbols-outlined text-secondary text-4xl mb-4">health_and_safety</span>
+                <h3 class="font-headline-md text-headline-md mb-2 text-primary">Naturally Mineralized</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Rich in calcium, magnesium, and potassium for true cellular hydration.</p>
+            </div>
+            <div class="p-6 md:p-8 rounded-2xl glass-morphism inner-glow flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 bg-white/60 backdrop-blur-sm">
+                <span class="material-symbols-outlined text-secondary text-4xl mb-4">eco</span>
+                <h3 class="font-headline-md text-headline-md mb-2 text-primary">Sustainable Source</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Harvested responsibly from protected aquifers with zero-waste packaging.</p>
+            </div>
+            <div class="p-6 md:p-8 rounded-2xl glass-morphism inner-glow flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 bg-white/60 backdrop-blur-sm">
+                <span class="material-symbols-outlined text-secondary text-4xl mb-4">opacity</span>
+                <h3 class="font-headline-md text-headline-md mb-2 text-primary">Perfect pH Balance</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Naturally alkaline at pH 7.8 to support overall wellness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PRODUCT SHOWCASE - FIXED WhatsApp buttons
+    ============================================================ -->
+    <section class="py-16 md:py-24 bg-surface-bright" id="shop">
+        <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="font-serif-heading text-headline-xl-mobile md:text-headline-xl text-primary mb-4">Pure Water for Every Moment</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant">Premium spring water available in 500ml, 1L, 2L, and 5L eco-friendly bottles.</p>
+            </div>
+
+            <!-- 500ml & 1L -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                <!-- 500ml -->
+                <div class="product-card group relative aspect-[4/3] md:aspect-square bg-white rounded-3xl overflow-hidden inner-glow flex flex-col items-center justify-end p-6 md:p-12 hover:shadow-2xl transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container/60 to-transparent"></div>
+                    <img class="product-img bottle-shadow w-2/3 object-contain z-10" src="images/1.png" alt="Pure 500ml spring water" />
+                    <div class="relative z-20 text-center mt-4 md:mt-8">
+                        <p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-widest mb-1">Daily Essential</p>
+                        <h4 class="font-headline-md text-headline-md text-primary">Pure 500ml</h4>
+                        <div class="mt-3 font-headline-md text-primary">₹19.99 / Case</div>
+                        <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20order%20the%20500ml%20spring%20water%20case!" target="_blank" class="whatsapp-trigger inline-block mt-3 px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm hover:bg-primary/90 transition-colors">Add to Cart</a>
+                    </div>
+                </div>
+
+                <!-- 1L -->
+                <div class="product-card group relative aspect-[4/3] md:aspect-square bg-white rounded-3xl overflow-hidden inner-glow flex flex-col items-center justify-end p-6 md:p-12 hover:shadow-2xl transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container/60 to-transparent"></div>
+                    <img class="product-img bottle-shadow w-2/3 object-contain z-10" src="images/2.png" alt="Active 1L spring water" />
+                    <div class="relative z-20 text-center mt-4 md:mt-8">
+                        <p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-widest mb-1">Active Hydration</p>
+                        <h4 class="font-headline-md text-headline-md text-primary">Active 1L</h4>
+                        <div class="mt-3 font-headline-md text-primary">₹24.99 / Case</div>
+                        <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20order%20the%201L%20spring%20water%20case!" target="_blank" class="whatsapp-trigger inline-block mt-3 px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm hover:bg-primary/90 transition-colors">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2L & 5L -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <!-- 2L -->
+                <div class="product-card group relative h-[280px] md:h-[400px] bg-white rounded-3xl overflow-hidden inner-glow flex items-center justify-between p-6 md:px-12 hover:shadow-2xl transition-all duration-500">
+                    <div class="w-1/2">
+                        <p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-widest mb-1">Family Share</p>
+                        <h4 class="font-headline-md text-headline-md text-primary mb-2">Family 2L</h4>
+                        <div class="font-headline-md text-primary mb-2">₹29.99 / Case</div>
+                        <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20inquire%20about%20the%202L%20spring%20water!" target="_blank" class="whatsapp-trigger text-primary font-label-sm border-b border-primary hover:border-transparent transition-colors">View Details</a>
+                    </div>
+                    <img class="product-img bottle-shadow h-[70%] md:h-[80%] object-contain" src="images/3.png" alt="Family 2L spring water" />
+                </div>
+
+                <!-- 5L -->
+                <div class="product-card group relative h-[280px] md:h-[400px] bg-white rounded-3xl overflow-hidden inner-glow flex items-center justify-between p-6 md:px-12 hover:shadow-2xl transition-all duration-500">
+                    <div class="w-1/2">
+                        <p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-widest mb-1">Hydration Hub</p>
+                        <h4 class="font-headline-md text-headline-md text-primary mb-2">Enterprise 5L</h4>
+                        <div class="font-headline-md text-primary mb-2">₹39.99 / Case</div>
+                        <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20inquire%20about%20the%205L%20spring%20water!" target="_blank" class="whatsapp-trigger text-primary font-label-sm border-b border-primary hover:border-transparent transition-colors">View Details</a>
+                    </div>
+                    <img class="product-img bottle-shadow h-[70%] md:h-[90%] object-contain" src="images/4.png" alt="Enterprise 5L spring water" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    B2B SECTION - FIXED WhatsApp buttons
+    ============================================================ -->
+    <section class="py-16 md:py-24 bg-primary-container relative overflow-hidden" id="b2b">
+        <div class="absolute inset-0 opacity-5 bg-[radial-gradient(ellipse_at_top_right,_#ffffff_0%,_transparent_70%)]"></div>
+        <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div>
+                <span class="text-secondary-fixed font-label-sm uppercase tracking-[0.2em]">B2B &amp; Events</span>
+                <h2 class="font-serif-heading text-headline-xl-mobile md:text-headline-xl text-white mt-4 mb-6">Premium Water for Offices, Conferences, and Hotels.</h2>
+                <p class="font-body-lg text-body-lg text-white/70 mb-8 md:mb-10">Keep your team, guests, and event attendees perfectly hydrated with our premium spring water. We offer bulk delivery, custom-branded labels, and dedicated support for businesses of all sizes.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20request%20a%20free%20sample%20for%20my%20business!" target="_blank" class="whatsapp-trigger inline-block px-6 md:px-8 py-3 md:py-4 bg-white text-primary font-headline-md rounded-xl hover:bg-surface transition-all shadow-lg">Request a Free Sample</a>
+                    <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20see%20your%20bulk%20pricing%20for%20business!" target="_blank" class="whatsapp-trigger inline-block px-6 md:px-8 py-3 md:py-4 border border-white/20 text-white font-headline-md rounded-xl hover:bg-white/10 transition-all backdrop-blur-md">View Bulk Pricing</a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="aspect-[4/3] rounded-3xl overflow-hidden glass-morphism border-white/10 p-2">
+                    <div class="w-full h-full rounded-2xl overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&q=80');" alt="Corporate water delivery"></div>
+                </div>
+                <div class="absolute -bottom-6 -left-4 md:-bottom-8 md:-left-8 glass-morphism p-4 md:p-6 rounded-2xl border border-white/20 hidden sm:block bg-white/10 backdrop-blur-md">
+                    <p class="font-headline-md text-white mb-1 text-sm md:text-base">2,500+ Businesses</p>
+                    <p class="font-label-sm text-white/60">Trust AquaPure for their hydration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    VIDEO REVIEWS – embedded YouTube (no controls, clean)
+    ============================================================ -->
+    <section class="py-16 md:py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="reviews">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="flex text-tertiary">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">star</span>
+                    </div>
+                    <span class="font-label-sm text-label-sm text-primary">4.9/5 Rating</span>
+                </div>
+                <h2 class="font-serif-heading text-headline-xl-mobile md:text-headline-xl text-primary">Loved by 50,000+ Hydration Enthusiasts</h2>
+            </div>
+            <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20share%20my%20review%20and%20order%20more%20water!" target="_blank" class="whatsapp-trigger font-label-sm text-primary border-b-2 border-primary pb-1 hover:border-transparent transition-colors whitespace-nowrap">Read All Reviews →</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Review 1 -->
+            <div class="video-wrapper rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                <iframe src="https://www.youtube.com/embed/g8ICQUwxkak?controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1"
+                title="Customer review"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="video-wrapper rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+            <iframe src="https://www.youtube.com/embed/rl5tNMpW--k?controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1"
+            title="Customer review"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================
+SCIENCE OF WATER
+============================================================ -->
+<section class="py-16 md:py-24 bg-surface-container overflow-hidden">
+    <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div class="order-2 md:order-1">
+            <div class="bg-white p-6 md:p-12 rounded-3xl shadow-xl inner-glow relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="font-serif-heading text-headline-xl-mobile md:text-headline-xl text-primary mb-6 md:mb-8">The Science of Pure Water</h3>
+                    <div class="space-y-6 md:space-y-8">
+                        <div class="flex gap-4 md:gap-6">
+                            <div class="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-secondary-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-secondary-container">biotech</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-primary mb-1">Natural Filtration</h4>
+                                <p class="font-body-md text-on-surface-variant text-sm md:text-base">Filtered through 2,000 feet of glacial rock, naturally infusing essential minerals.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 md:gap-6">
+                            <div class="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-secondary-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-secondary-container">model_training</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-primary mb-1">Cellular Absorption</h4>
+                                <p class="font-body-md text-on-surface-variant text-sm md:text-base">Low surface tension allows 30% faster absorption for rapid hydration.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 md:gap-6">
+                            <div class="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-secondary-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-secondary-container">opacity</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-primary mb-1">Optimal Alkaline Level</h4>
+                                <p class="font-body-md text-on-surface-variant text-sm md:text-base">pH 7.8 helps maintain your body's natural acid-alkaline balance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-1 md:order-2 space-y-6 md:space-y-8">
+            <h2 class="font-serif-heading text-headline-xl-mobile md:text-headline-xl text-primary">Hydration at the Molecular Level.</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">AquaPure isn't just water—it's a biological performance tool. Our pristine source and meticulous quality control ensure every bottle delivers the perfect balance of minerals, pH, and purity to optimize your health and cognitive function.</p>
+            <div class="p-6 md:p-8 rounded-2xl glass-morphism border-primary/10 bg-white/60 backdrop-blur-sm">
+                <div class="flex justify-between items-end mb-4">
+                    <span class="font-label-sm text-primary">Cellular Hydration Efficiency</span>
+                    <span class="font-headline-md text-primary">98%</span>
+                </div>
+                <div class="w-full h-2 bg-surface rounded-full overflow-hidden">
+                    <div class="h-full bg-primary w-[98%] transition-all duration-1000"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+TRUST BADGES
+============================================================ -->
+<section class="py-12 md:py-16 border-y border-outline-variant bg-surface">
+    <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-3xl md:text-4xl">verified</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">ISO 22000 Certified</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-3xl md:text-4xl">security</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Lab Tested Purity</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-3xl md:text-4xl">workspace_premium</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">100% Natural Spring</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-3xl md:text-4xl">recycling</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Eco-Friendly Packaging</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+FOOTER - FIXED WhatsApp link in subscribe button
+============================================================ -->
+<footer class="bg-primary text-on-primary py-16 md:py-20">
+    <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-6 mb-12 md:mb-16">
+        <div class="col-span-1 sm:col-span-2 md:col-span-1">
+            <a class="font-serif-heading text-headline-xl font-bold text-on-primary mb-6 block" href="#">
+                AquaPure
+            </a>
+            <p class="font-body-md text-on-primary/70 mb-6 max-w-xs">Delivering nature's perfect hydration from protected mountain springs to your doorstep.</p>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors" href="#" aria-label="Website">
+                    <span class="material-symbols-outlined text-xl">public</span>
+                </a>
+                <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors" href="#" aria-label="Share">
+                    <span class="material-symbols-outlined text-xl">share</span>
+                </a>
+                <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors" href="#" aria-label="Email">
+                    <span class="material-symbols-outlined text-xl">mail</span>
+                </a>
+            </div>
+        </div>
+        <div>
+            <h4 class="font-headline-md text-on-primary mb-6">Explore</h4>
+            <ul class="space-y-3 md:space-y-4 font-body-md text-on-primary/60">
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Home</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#shop">Our Water Selection</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Sustainability Report</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#events">Events &amp; Sponsorships</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#reviews">Customer Reviews</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-headline-md text-on-primary mb-6">B2B &amp; Trade</h4>
+            <ul class="space-y-3 md:space-y-4 font-body-md text-on-primary/60">
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Corporate Hydration</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Hotel &amp; Resort Supply</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Wholesale Portal</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Custom Labeling</a></li>
+                <li><a class="hover:text-secondary-fixed transition-colors" href="#">Quality Certifications</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-headline-md text-on-primary mb-6">Join the Circle</h4>
+            <p class="font-body-md text-on-primary/60 mb-6">Subscribe for exclusive access to limited edition spring sources and wellness insights.</p>
+            <div class="flex flex-col gap-3">
+                <input class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-1 focus:ring-secondary-fixed outline-none transition-all" placeholder="Email address" type="email" />
+                <a href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20subscribe%20for%20exclusive%20updates!" target="_blank" class="whatsapp-trigger w-full py-3 bg-secondary-fixed text-on-secondary-fixed font-headline-md rounded-xl hover:opacity-90 transition-opacity text-center block">Subscribe</a>
+            </div>
+        </div>
+    </div>
+    <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-6 md:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-on-primary/40 font-label-sm text-sm">
+        <p>© 2026 AquaPure Spring Water. All rights reserved.</p>
+        <div class="flex gap-6 md:gap-8">
+            <a class="hover:text-on-primary transition-colors" href="#">Privacy Policy</a>
+            <a class="hover:text-on-primary transition-colors" href="#">Terms of Service</a>
+            <a class="hover:text-on-primary transition-colors" href="#">Cookie Settings</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================================================
+FLOATING WHATSAPP BUTTON - FIXED URL
+============================================================ -->
+<a class="whatsapp-float" href="https://wa.me/9876543210?text=Hi%20AquaPure%2C%20I'd%20like%20to%20inquire%20about%20ordering%20your%20premium%20spring%20water!" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="tooltip">Order via WhatsApp</span>
+</a>
+
+<!-- ============================================================
+SCRIPTS
+============================================================ -->
+<script>
+    // --------------------------------------------------------------
+    // 1. All .whatsapp-trigger buttons → open WhatsApp (fallback for any remaining buttons)
+    // --------------------------------------------------------------
+    const WA_NUMBER = '9876543210';
+    const WA_MSG = 'Hi%20AquaPure%2C%20I%27d%20like%20to%20inquire%20about%20ordering%20your%20premium%20spring%20water!';
+
+    document.querySelectorAll('.whatsapp-trigger:not(a)').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open(`https://wa.me/₹{WA_NUMBER}?text=₹{WA_MSG}`, '_blank');
+        });
+    });
+
+    // --------------------------------------------------------------
+    // 2. Mobile menu
+    // --------------------------------------------------------------
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const bar1 = document.getElementById('menuBar1');
+    const bar2 = document.getElementById('menuBar2');
+    const bar3 = document.getElementById('menuBar3');
+
+    function openMenu() {
+        mobileMenu.classList.remove('translate-x-full');
+        mobileOverlay.classList.remove('opacity-0', 'invisible');
+        document.body.style.overflow = 'hidden';
+        bar1.classList.add('rotate-45', 'translate-y-2');
+        bar2.classList.add('opacity-0');
+        bar3.classList.add('-rotate-45', '-translate-y-2');
+    }
+
+    function closeMenu() {
+        mobileMenu.classList.add('translate-x-full');
+        mobileOverlay.classList.add('opacity-0', 'invisible');
+        document.body.style.overflow = '';
+        bar1.classList.remove('rotate-45', 'translate-y-2');
+        bar2.classList.remove('opacity-0');
+        bar3.classList.remove('-rotate-45', '-translate-y-2');
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    mobileOverlay.addEventListener('click', closeMenu);
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // --------------------------------------------------------------
+    // 3. Sticky nav
+    // --------------------------------------------------------------
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('py-2', 'bg-surface/90');
+            nav.classList.remove('py-3', 'md:py-4', 'bg-surface/70');
+        } else {
+            nav.classList.add('py-3', 'md:py-4', 'bg-surface/70');
+            nav.classList.remove('py-2', 'bg-surface/90');
+        }
+    });
+
+    // --------------------------------------------------------------
+    // 4. Scroll reveal
+    // --------------------------------------------------------------
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll(
+        '#shop .product-card, #b2b, #reviews .video-wrapper, .feature-grid > div'
+    ).forEach(el => {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+    });
+
+    // --------------------------------------------------------------
+    // 5. Smooth scroll for anchor links
+    // --------------------------------------------------------------
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                const navHeight = 80;
+                const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    console.log('💧 AquaPure — WhatsApp links fixed!');
+</script>
+
+</body>
+</html>
